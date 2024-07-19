@@ -8,8 +8,9 @@ if [ -z "${ANDROID_NDK+x}" ]; then
     exit 1
 fi
 
-export BASE_PREFIX=$(realpath ${BASE:-$(pwd)})/prefix
-export BASE_BUILD=$(realpath ${BASE:-$(pwd)})/build
+export BASE=$(realpath ${BASE:-$(pwd)})
+export BASE_PREFIX=$BASE/prefix
+export BASE_BUILD=$BASE/build
 export ANDROID_NDK_HOME=$ANDROID_NDK
 source ./config.bash
 
@@ -70,6 +71,7 @@ fi
 
 for arg in "${packages[@]}"; do
     export PATH=$ANDROID_NDK/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
+	cd $BASE
     source ./$arg.pkg.bash
     
     echo "Building $NAME..."
