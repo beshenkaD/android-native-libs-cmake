@@ -8,11 +8,21 @@ if [ -z "${ANDROID_NDK+x}" ]; then
     exit 1
 fi
 
+if [ -z "${HOST_TAG+x}" ]; then
+    echo "please export HOST_TAG"
+    # TODO: Do it automatically
+    exit 1
+fi
+
+if [ -z "${MIN_SDK_VERSION+x}" ]; then
+    echo "Setting MIN_SDK_VERSION to 21"
+    export MIN_SDK_VERSION=21
+fi
+
 export BASE=$(realpath ${BASE:-$(pwd)})
 export BASE_PREFIX=$BASE/prefix
 export BASE_BUILD=$BASE/build
 export ANDROID_NDK_HOME=$ANDROID_NDK
-source ./config.bash
 
 mkdir -p $BASE_BUILD
 mkdir -p $BASE_PREFIX
@@ -70,7 +80,7 @@ if [[ ${#packages[@]} -eq 0 ]]; then
 fi
 
 for arg in "${packages[@]}"; do
-    export PATH=$ANDROID_NDK/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
+    export PATH=$ANDROID_NDK/toolchains/llvm/prebuilt/$HOST_TAG/bin:$PATH
 	cd $BASE
     source ./$arg.pkg.bash
     
