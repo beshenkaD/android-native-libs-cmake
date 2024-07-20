@@ -76,16 +76,6 @@ for arg in "${packages[@]}"; do
     
     echo "Building $NAME..."
     
-    echo "Checking dependencies..."
-    for dep in "${DEPS[@]}"; do
-        for arch in "${arch_array[@]}"; do
-            if [[ $(check_dep "$BASE_PREFIX/$dep/$arch") -eq 0 ]]; then
-                echo "$NAME/$arch requires $dep/$arch. Aborting..."
-                exit 1
-            fi
-        done
-    done
-    
     cd $BASE_BUILD
     
     if [ -d $REPO_NAME ]; then
