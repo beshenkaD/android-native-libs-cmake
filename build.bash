@@ -27,7 +27,7 @@ export ANDROID_NDK_HOME=$ANDROID_NDK
 mkdir -p $BASE_BUILD
 mkdir -p $BASE_PREFIX
 
-declare -a available_archs=("aarch64" "armv7-a" "x86_64")
+declare -a available_archs=("aarch64" "armv7-a" "x86_64", "i686")
 declare -a arch_array
 declare -a packages
 

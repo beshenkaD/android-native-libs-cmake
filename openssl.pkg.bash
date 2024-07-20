@@ -31,4 +31,12 @@ build() {
         make -j$(nproc) build_libs
         make -j$(nproc) install_sw
     fi
+
+    if [[ "$arch" = "i686" ]]; then
+        ./Configure no-shared android-x86 --prefix=$prefix/$REPO_NAME/$arch
+        make clean
+        make depend
+        make -j$(nproc) build_libs
+        make -j$(nproc) install_sw
+    fi
 }
