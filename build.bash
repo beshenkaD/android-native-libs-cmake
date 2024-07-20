@@ -27,10 +27,6 @@ export ANDROID_NDK_HOME=$ANDROID_NDK
 mkdir -p $BASE_BUILD
 mkdir -p $BASE_PREFIX
 
-check_dep() {
-    test -f "$1" && return 0 || return 1
-}
-
 declare -a available_archs=("aarch64" "armv7-a" "x86_64")
 declare -a arch_array
 declare -a packages
@@ -101,6 +97,11 @@ for arg in "${packages[@]}"; do
     echo "Building $NAME in $(realpath $PWD), deploying to $BASE_PREFIX/$REPO_NAME"
 
     for arch in "${arch_array[@]}"; do
+		if [ -d $BASE_PREFIX/$REPO_NAME/$arch ]; then
+			echo "$BASE_PREFIX/$REPO_NAME/$arch exists. Skipping..."
+			continue
+		fi
+
         build $arch $BASE_PREFIX
     done
 done
