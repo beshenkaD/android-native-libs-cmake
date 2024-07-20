@@ -31,7 +31,7 @@ check_dep() {
     test -f "$1" && return 0 || return 1
 }
 
-declare -a available_archs=("aarch64" "x86_64")
+declare -a available_archs=("aarch64" "armv7-a" "x86_64")
 declare -a arch_array
 declare -a packages
 

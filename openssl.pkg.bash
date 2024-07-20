@@ -17,6 +17,13 @@ build() {
         make clean
     fi
 
+    if [[ "$arch" = "armv7-a" ]]; then
+        ./Configure no-shared android-arm --prefix=$prefix/$REPO_NAME/$arch
+        make -j$(nproc)
+        make -j$(nproc) install_sw
+        make clean
+    fi
+
     if [[ "$arch" = "x86_64" ]]; then
         ./Configure no-shared android-x86_64 --prefix=$prefix/$REPO_NAME/$arch
         make clean
